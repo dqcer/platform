@@ -41,19 +41,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- mybatis-plus -->
-       <!-- <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis-plus.version}</version>
-        </dependency>
-        &lt;!&ndash; druid &ndash;&gt;
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid.version}</version>
-        </dependency>-->
         <!-- json -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -62,12 +49,12 @@
         </dependency>
 
         <!--mysql-->
-      <!--  <dependency>
+       <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.47</version>
             <scope>runtime</scope>
-        </dependency>-->
+        </dependency>
 
         <!--swagger2-->
         <dependency>

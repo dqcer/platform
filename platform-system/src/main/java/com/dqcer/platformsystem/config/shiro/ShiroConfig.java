@@ -7,9 +7,12 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -22,7 +25,7 @@ import java.util.Properties;
 @Slf4j
 @Configurable
 public class ShiroConfig {
-    @Bean
+    /*@Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         System.out.println("ShiroConfiguration.shirFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -47,12 +50,12 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
-    /**
+    *//**
      * 凭证匹配器
      * （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了
      * ）
      * @return
-     */
+     *//*
     @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher(){
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
@@ -76,12 +79,12 @@ public class ShiroConfig {
         return securityManager;
     }
 
-    /**
+    *//**
      *  开启shiro aop注解支持.
      *  使用代理方式;所以需要开启代码支持;
      * @param securityManager
      * @return
-     */
+     *//*
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
@@ -101,5 +104,54 @@ public class ShiroConfig {
         r.setExceptionAttribute("ex");     // Default is "exception"
         //r.setWarnLogCategory("example.MvcLogger");     // No default
         return r;
+    }*/
+/*    @Bean
+    public FilterRegistrationBean delegatingFilterProxy(){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        DelegatingFilterProxy proxy = new DelegatingFilterProxy();
+        proxy.setTargetFilterLifecycle(true);
+        proxy.setTargetBeanName("shiroFilter");
+        filterRegistrationBean.setFilter(proxy);
+        return filterRegistrationBean;
+    }*/
+    @Bean
+    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        shiroFilterFactoryBean.setSecurityManager(securityManager);
+
+        Map<String, String> filterChainDefinitionMap = new HashMap<String, String>();
+        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/unauthc");
+        shiroFilterFactoryBean.setSuccessUrl("/home/index");
+
+        filterChainDefinitionMap.put("/*", "anon");
+        filterChainDefinitionMap.put("/authc/index", "authc");
+        filterChainDefinitionMap.put("/authc/admin", "roles[admin]");
+        filterChainDefinitionMap.put("/authc/renewable", "perms[Create,Update]");
+        filterChainDefinitionMap.put("/authc/removable", "perms[Delete]");
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        return shiroFilterFactoryBean;
+    }
+
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName("md5"); // 散列算法
+        hashedCredentialsMatcher.setHashIterations(2); // 散列次数
+        return hashedCredentialsMatcher;
+    }
+
+    @Bean
+    public MyShiroRealm shiroRealm() {
+        MyShiroRealm myShiroRealm = new MyShiroRealm();
+        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return myShiroRealm;
+    }
+
+    @Bean
+    public SecurityManager securityManager() {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        securityManager.setRealm(shiroRealm());
+        return securityManager;
     }
 }
