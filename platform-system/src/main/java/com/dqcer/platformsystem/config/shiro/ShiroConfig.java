@@ -3,19 +3,13 @@ package com.dqcer.platformsystem.config.shiro;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.filter.DelegatingFilterProxy;
-import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * shiro配置
@@ -23,7 +17,7 @@ import java.util.Properties;
  * @data 2019/7/15 21:42
  */
 @Slf4j
-@Configurable
+@Configuration
 public class ShiroConfig {
     /*@Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
