@@ -2,7 +2,6 @@ package com.dqcer.platform.system.web.vo.user.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import java.util.List;
  * @data 2019/7/23 21:10
  */
 @Data
-@Entity(name = "user_info")
 public class UserInfoEntity implements Serializable {
 
     private static final long serialVersionUID = 5062614137919272463L;
@@ -20,14 +18,11 @@ public class UserInfoEntity implements Serializable {
     /**
      * 主键
      */
-    @Id
-    @GeneratedValue
     private Integer uid;
 
     /**
      * 账号名称
      */
-    @Column(unique =true)
     private String username;
 
     /**
@@ -53,8 +48,6 @@ public class UserInfoEntity implements Serializable {
     /**
      * 用户权限表
      */
-    @ManyToMany(fetch= FetchType.EAGER)//立即从数据库中进行加载数据;
-    @JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "uid") }, inverseJoinColumns ={@JoinColumn(name = "roleId") })
     private List<SysRoleEntity> roleList;// 一个用户具有多个角色
 
     /**

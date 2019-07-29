@@ -1,12 +1,14 @@
 package com.dqcer.platform.system.web.vo.log.entity;
 
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,7 +20,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Entity(name = "sys_log")
+@TableName("sys_log")
 public class SysLogEntity implements Serializable {
 
     private static final long serialVersionUID = -5711388490963605237L;
@@ -26,8 +28,8 @@ public class SysLogEntity implements Serializable {
     /**
      * 主键
      */
-    @Id
-    @GeneratedValue
+
+    @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
 
     /**

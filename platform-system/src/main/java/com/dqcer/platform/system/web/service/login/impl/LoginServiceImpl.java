@@ -1,6 +1,5 @@
 package com.dqcer.platform.system.web.service.login.impl;
 
-import com.dqcer.platform.system.web.service.base.impl.BaseServiceImpl;
 import com.dqcer.platform.system.web.service.login.LoginService;
 import com.dqcer.platform.system.web.vo.login.response.UserInfoResponse;
 import com.dqcer.platform.system.web.vo.user.entity.UserInfoEntity;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class LoginServiceImpl extends BaseServiceImpl<UserInfoEntity, Integer> implements LoginService {
+public class LoginServiceImpl implements LoginService {
 
 
 
@@ -28,10 +27,10 @@ public class LoginServiceImpl extends BaseServiceImpl<UserInfoEntity, Integer> i
     public UserInfoResponse findUserByName(String username) {
         UserInfoEntity entity = new UserInfoEntity();
         entity.setName(username);
-        UserInfoEntity one = findOne(entity);
+       // UserInfoEntity one = findOne(entity);
         // TODO: 2019/7/23
-        UserInfoResponse response = (UserInfoResponse) one;
-        return response;
+        //UserInfoResponse response = (UserInfoResponse) one;
+        return null;
     }
 
 

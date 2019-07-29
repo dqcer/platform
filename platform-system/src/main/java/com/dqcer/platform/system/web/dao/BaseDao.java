@@ -1,18 +1,11 @@
 package com.dqcer.platform.system.web.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.repository.NoRepositoryBean;
-
-import java.io.Serializable;
-
 /**
  * 数据操作的工具类
  * @author dongQin
  * @data 2019/7/23 22:06
  */
-@NoRepositoryBean
-public interface BaseDao<T, ID extends Serializable> extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
+public interface BaseDao {
 
     /**
      * 根据多个ID查询实体

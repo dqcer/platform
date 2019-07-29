@@ -1,10 +1,8 @@
 package com.dqcer.platform.system.config.aspect;
 
-import com.alibaba.fastjson.JSONObject;
 import com.dqcer.platform.common.aspect.annotation.PlatformLog;
 import com.dqcer.platform.system.web.dao.log.LogDao;
 import com.dqcer.platform.system.web.vo.log.entity.SysLogEntity;
-import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Date;
@@ -105,6 +102,10 @@ public class PlatformLogAspect {
             sysLog.setUsername(sysUser.getRealname());
 
         }*/
+       entity.setUid(1);
+       entity.setUsername("测试管理源");
+       entity.setName("dqcer");
+       entity.setOperateType(1);
         //耗时
         entity.setCostTime(time);
         entity.setCreateTime(new Date());
@@ -113,7 +114,7 @@ public class PlatformLogAspect {
         HttpServletResponse httpServletResponse = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
         int status = httpServletResponse.getStatus();
         entity.setResponseStatus(status);
-        logDao.save(entity);
+        logDao.insert(entity);
 
         // HttpServletResponse.SC_BAD_REQUEST;
 

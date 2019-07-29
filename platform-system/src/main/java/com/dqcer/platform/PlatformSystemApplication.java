@@ -1,10 +1,12 @@
 package com.dqcer.platform;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -17,6 +19,9 @@ import java.net.UnknownHostException;
  */
 @Slf4j
 @SpringBootApplication
+//启注解事务管理
+@EnableTransactionManagement
+@MapperScan("com.dqcer.platform.*.dao*")
 public class PlatformSystemApplication {
 
     public static void main(String[] args) throws UnknownHostException {

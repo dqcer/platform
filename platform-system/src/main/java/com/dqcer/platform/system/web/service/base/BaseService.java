@@ -1,9 +1,5 @@
 package com.dqcer.platform.system.web.service.base;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -49,5 +45,5 @@ public interface BaseService<T, ID extends Serializable> {
      * @param pageable
      * @return
      */
-    Page<T> findAll(Specification<T> spec, Pageable pageable) ;
+    //Page<T> findAll(Specification<T> spec, Pageable pageable) ;
 }
